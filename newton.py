@@ -25,7 +25,7 @@ def main():
             for zero, color in color_map:
                 if abs(vals[x, y] - zero) < 1e-6:
                     factor = shading_factor(iter_counts[x, y])
-                    pixels[x, y] = tuple(val*factor for val in color)
+                    pixels[x, y] = tuple(val * factor for val in color)
                     break
                 pixels[x, y] = (0, 0, 0)
 
@@ -35,7 +35,7 @@ def main():
 
 
 def shading_factor(iterations: int) -> float:
-    return -2.0/(1.0+np.exp(-0.1*(iterations - 1))) + 2
+    return -2.0 / (1.0 + np.exp(-0.1 * (iterations - 1))) + 2
 
 
 def get_grid(min: complex, max: complex, dims: Tuple[int, int]) -> np.ndarray:
