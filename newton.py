@@ -23,10 +23,10 @@ def main():
     for x in range(np.shape(vals)[0]):
         for y in range(np.shape(vals)[1]):
             for zero, color in color_map:
-                if abs(vals[x, y]) < 1e-6:
+                if abs(vals[x, y] - zero) < 1e-6:
                     pixels[x, y] = color
                     break
-                pixels[x, y] = color
+                pixels[x, y] = (0, 0, 0)
 
     image = Image.fromarray(pixels.astype(np.uint8))
     image.save("out.bmp")
