@@ -9,12 +9,12 @@ def main():
     x = Symbol("x")
     f = Pow(x, 4) - 1
     fprime = f.diff(x)
-    grid = get_grid(-2 - 2j, 2 + 2j, (800, 600))
+    grid = get_grid(-2 - 2j, 2 + 2j, (2000, 1400))
     color_map = [
         (1 + 0j, (255, 0, 0)),
         (-1 + 0j, (0, 255, 0)),
         (0 + 1j, (0, 0, 255)),
-        (0 - 1j, (0, 255, 255)),
+        (0 - 1j, (255, 255, 0)),
     ]
 
     vals, iter_counts = find_zeros(lambdify(x, f), lambdify(x, fprime), grid)
@@ -24,13 +24,18 @@ def main():
         for y in range(np.shape(vals)[1]):
             for zero, color in color_map:
                 if abs(vals[x, y] - zero) < 1e-6:
-                    pixels[x, y] = color
+                    factor = shading_factor(iter_counts[x, y])
+                    pixels[x, y] = tuple(val*factor for val in color)
                     break
                 pixels[x, y] = (0, 0, 0)
 
     image = Image.fromarray(pixels.astype(np.uint8))
     image.save("out.bmp")
     image.show()
+
+
+def shading_factor(iterations: int) -> float:
+    return 1.0/3.0*np.exp((-iterations+1)/2)+2.0/3.0
 
 
 def get_grid(min: complex, max: complex, dims: Tuple[int, int]) -> np.ndarray:
