@@ -35,7 +35,7 @@ def main():
 
 
 def shading_factor(iterations: int) -> float:
-    return 1.0/3.0*np.exp((-iterations+1)/2)+2.0/3.0
+    return -2.0/(1.0+np.exp(-0.1*(iterations - 1))) + 2
 
 
 def get_grid(min: complex, max: complex, dims: Tuple[int, int]) -> np.ndarray:
