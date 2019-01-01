@@ -9,7 +9,7 @@ def main():
     x = Symbol("x")
     f = Pow(x, 4) - 1
     fprime = f.diff(x)
-    grid = get_grid(-2 - 2j, 2 + 2j, (2000, 1400))
+    grid = get_grid(-2 - 1.3333j, 2 + 1.3333j, (1500, 1000))
     color_map = [
         (1 + 0j, (255, 0, 0)),
         (-1 + 0j, (0, 255, 0)),
